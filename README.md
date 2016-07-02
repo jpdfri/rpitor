@@ -15,7 +15,7 @@ Major changes are as follows:
 NOTE: as the time of this writing, kernel 4.4 has yet to be pushed to the master branch, please make sure you use [v1.1.x](https://github.com/debian-pi/raspbian-ua-netinst/tree/v1.1.x)
 
 * Use the _setup-image.sh_ script to create a customized _installer-config.txt_ file
-	>bash setup-image.sh _Pi hostname_ _root password_
+	>bash setup-image.sh _Pi-hostname_ _root-password_
 
 If you don't pass any argument, the script will choose some for you
 
