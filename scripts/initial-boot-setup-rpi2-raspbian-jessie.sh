@@ -77,8 +77,12 @@ apt-get install -y miniupnpc
 
 # Tor 
 apt-get install -y deb.torproject.org-keyring torsocks
-# The precompiled package might complain about OpenSSL headers mismatch, we play it safe with an optional CLI argument to compile
+apt-get install tor
+# The precompiled package might complain about OpenSSL headers mismatch
+# We play it safe with an optional CLI argument to compile locally
 if [ $1 == "source" ]; then 
+	cp /lib/systemd/system/tor*.service .
+	apt-get remove -y tor
 	apt-get install libevent-2.0-5 && apt-get build-dep -y tor && apt-get source -y tor
 	# This is all kinds of ugly code...
 	if [ -d tor-0\.* ]; then
@@ -87,11 +91,11 @@ if [ $1 == "source" ]; then
 		make -j5
 		make install
 		cd ..
-		else
+		cp tor*.service /lib/systemd/system/
+		systemctl enable tor.service
+	else
 		exit 1
 	fi
-else
-	apt-get install tor
 fi
 
 # Don't forget perl-modules we use in scripts - TODO: use bash commands instead?

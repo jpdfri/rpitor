@@ -7,6 +7,13 @@ Major changes are as follows:
 * Hardware upgraded to Raspberry Pi 2
 * Base OS upgraded to Raspbian Jessie
 
+##This is the devel branch
+Here be dragons...
+* WIPs and TODOs
+	>Decide of a license
+	>systemd unit files for locally compiled packages, copied from a repo package?
+	>To Perl or not to Perl...
+
 ##Getting started with a new relay
 * Prepare a folder to work with the scripts and such
 	>mkdir scripts && cd scripts
