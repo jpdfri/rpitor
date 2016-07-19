@@ -23,7 +23,7 @@ If you don't pass any argument, the script will choose some for you
 * Clone the rpitor repo to the Raspberry Pi
 	> git clone https://github.com/DFRI/rpitor.git
 
-* Run _initial-boot-setup-rpi2-raspbian-jessie.sh_
+* Run _initial-boot-setup-rpi2-raspbian-jessie.sh_. Pass "source" as an argument to compile from source.
 * Now the RPi will download and install updates and then reboot itself (this normally takes about 10-15 minutes).
 * After the automatic reboot, Tor will be started.
 * Remember to setup port forwarding (TCP 9001) on your router/firewall if the RPi is located on a NAT:ed private LAN
