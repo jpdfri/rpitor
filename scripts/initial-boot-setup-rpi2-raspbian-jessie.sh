@@ -65,16 +65,36 @@ gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
 
 # Install packages we want in place
 apt-get update
+
 # Raspbian packages
 apt-get install -y raspi-copies-and-fills rpi-update
+
 # Debian Jessie packages
-apt-get install -y zlib1g-dev ntpdate perl openssl wget
+apt-get install -y zlib1g-dev ntpdate perl openssl wget libevent-2.0-5
+
 # UPnP - should we use something else? NAT KeepAlive?
 apt-get install -y miniupnpc
-# Tor - libevent-2.0-5 is pulled automatically as a dependency
-apt-get install -y tor deb.torproject.org-keyring
 
-# Don't forget perl-modules we use in scripts
+# Tor 
+apt-get install -y deb.torproject.org-keyring torsocks
+# The precompiled package might complain about OpenSSL headers mismatch, we play it safe with an optional CLI argument to compile
+if [ $1 == "source" ]; then 
+	apt-get install libevent-2.0-5 && apt-get build-dep -y tor && apt-get source -y tor
+	# This is all kinds of ugly code...
+	if [ -d tor-0\.* ]; then
+		cd tor-0*
+		./configure
+		make -j5
+		make install
+		cd ..
+		else
+		exit 1
+	fi
+else
+	apt-get install tor
+fi
+
+# Don't forget perl-modules we use in scripts - TODO: use bash commands instead?
 if [ ! -f /usr/local/share/perl/5.[0-9]{1,2}.[0-9]{1,2}/Net/IP.pm ]
 then
 	cpan -fi Net::IP 
