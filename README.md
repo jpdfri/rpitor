@@ -10,19 +10,19 @@ Major changes are as follows:
 ##This is the devel branch
 Here be dragons...
 * WIPs and TODOs
-	>Decide of a license
-	>systemd unit files for locally compiled packages, copied from a repo package?
-	>To Perl or not to Perl...
+	> Decide of a license
+	> systemd unit files for locally compiled packages, copied from a repo package?
+	> To Perl or not to Perl...
 
 ##Getting started with a new relay
 * Prepare a folder to work with the scripts and such
-	>mkdir scripts && cd scripts
+	> mkdir scripts && cd scripts
 
 * Create a fresh, minimal Raspbian install with [Raspbian unattended netinstaller](https://github.com/debian-pi/raspbian-ua-netinst)
 NOTE: as the time of this writing, kernel 4.4 has yet to be pushed to the master branch, please make sure you use [v1.1.x](https://github.com/debian-pi/raspbian-ua-netinst/tree/v1.1.x)
 
 * Use the _setup-image.sh_ script to create a customized _installer-config.txt_ file
-	>bash setup-image.sh _Pi-hostname_ _root-password_
+	> bash setup-image.sh _Pi-hostname_ _root-password_
 
 If you don't pass any argument, the script will choose some for you
 

@@ -77,11 +77,12 @@ apt-get install -y miniupnpc
 
 # Tor 
 apt-get install -y deb.torproject.org-keyring torsocks
-apt-get install tor
+apt-get install -y tor
 # The precompiled package might complain about OpenSSL headers mismatch
 # We play it safe with an optional CLI argument to compile locally
 if [ $1 == "source" ]; then 
-	cp /lib/systemd/system/tor*.service .
+	# Backup systemd service unit files
+	mkdir tor.service.backup && cp /lib/systemd/system/tor*.service tor.service.backup/
 	apt-get remove -y tor
 	apt-get install libevent-2.0-5 && apt-get build-dep -y tor && apt-get source -y tor
 	# This is all kinds of ugly code...
@@ -91,8 +92,11 @@ if [ $1 == "source" ]; then
 		make -j5
 		make install
 		cd ..
-		cp tor*.service /lib/systemd/system/
+		# Restore systemd service unit files and modify the binay path
+		cp tor.service.backup/tor*.service /lib/systemd/system/
+		sed -i 's/\/usr\/bin\/tor/\/usr\/local\/bin\/tor/g' /lib/systemd/system/tor@default.service
 		systemctl enable tor.service
+		systemctl unmask tor.service
 	else
 		exit 1
 	fi
@@ -123,9 +127,6 @@ fi
 systemctl stop ntp
 /usr/sbin/ntpdate 0.se.pool.ntp.org
 systemctl start ntp
-
-# Setup tor user
-useradd -d /usr/local/var/lib/tor -s /bin/sh -m tor
 
 # setup empty crontab, just so that we can assume that a crontab already exists
 if [ ! -f /var/spool/cron/crontabs/root ]
