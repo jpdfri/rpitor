@@ -11,7 +11,9 @@ Major changes are as follows:
 Here be dragons...
 * WIPs and TODOs
 	> Decide of a license
+
 	> systemd unit files for locally compiled packages, copied from a repo package?
+
 	> To Perl or not to Perl...
 
 ##Getting started with a new relay
