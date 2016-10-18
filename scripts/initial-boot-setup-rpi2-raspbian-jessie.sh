@@ -51,6 +51,12 @@ rm -f *key*
 for i in {rsa,dsa,ecdsa}; do
 	echo -e  'y\n' | ssh-keygen -t $i -f ssh_host_"$i"_key -N ""
 done
+
+# Harden SSH moduli
+awk '$5 < 2047 {$0 = "#" $0}{print}' moduli > moduli.fix
+cp moduli.fix moduli
+
+# Restart sshd
 systemctl restart sshd
 
 # Add Tor's Debian repo to sources
