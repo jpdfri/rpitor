@@ -45,11 +45,11 @@ fi
 
 sleep 10 # Fill entropy pool
 
-# Regenerate ssh-keys
+# Regenerate ssh-keys - overwrite existing ones
 cd /etc/ssh
 rm -f *key*
 for i in {rsa,dsa,ecdsa}; do
-	ssh-keygen -t $i -f ssh_host_"$i"_key -N ""
+	echo -e  'y\n' | ssh-keygen -t $i -f ssh_host_"$i"_key -N ""
 done
 systemctl restart sshd
 
@@ -80,6 +80,7 @@ apt-get install -y deb.torproject.org-keyring torsocks
 apt-get install -y tor
 # The precompiled package might complain about OpenSSL headers mismatch
 # We play it safe with an optional CLI argument to compile locally
+cd /root/
 if [ $1 == "source" ]; then 
 	# Backup systemd service unit files
 	mkdir tor.service.backup && cp /lib/systemd/system/tor*.service tor.service.backup/
@@ -111,7 +112,7 @@ fi
 # Fix hosts.deny
 echo "ALL: ALL" >> /etc/hosts.deny
 
-# Fix hosts.allow
+# Fix hosts.allow - TODO: use "ip" instead of "ifconfig"
 NETWORK="$($SCRIPTS_PATH/check-ipsubnet.sh $(ifconfig eth0 | awk '$0 ~ /Bcast/ { print $2, $NF }' | sed -e 's/addr://g' -e 's/Mask://g'))"
 grep -v ^sshd: /etc/hosts.allow > /etc/hosts.allow-new
 mv /etc/hosts.allow-new /etc/hosts.allow
@@ -151,7 +152,7 @@ echo "# Update! RPI" >> /tmp/root-crontab
 echo "${RANDOM_MINUTE} ${RANDOM_HOUR} ${RANDOM_MONTHDAY} * * $SCRIPTS_PATH/update-rpi.sh > /dev/null 2>&1" >> /tmp/root-crontab
 crontab /tmp/root-crontab
 
-# Add another cronjob, update-rpi.sh
+# Add another cronjob, update-scripts.sh
 RANDOM_MINUTE=$[ ( $RANDOM % 60 ) ]
 RANDOM_HOUR=$[ ( $RANDOM % 24 ) ]
 crontab -l > /tmp/root-crontab
@@ -177,6 +178,11 @@ chmod u+x /etc/rc.local
 
 # Make sure /etc/dfri-setup-done exists
 touch /etc/dfri-setup-done
+
+# Fix /boot/config.txt
+cat << EOF > /boot/config.txt
+gpu_mem=16
+EOF
 
 # And, as a final thing, just make sure the device is updated
 $SCRIPTS_PATH/update-rpi.sh
