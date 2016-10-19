@@ -40,7 +40,7 @@ NOTE: kernel 4.4 should now be part of the master branch, otherwise make sure yo
 If you don't pass any argument, the script will choose some for you
 
 * Mount your SD card and copy the resulting _installer-config.txt_ alongside _config.txt_  
-* Clone the rpitor repo to the Raspberry Pi
+* Boot up your Raspberry Pi 2, let it go through the initial setup. Once you can SSH into it, clone the rpitor repo to the Raspberry Pi
 	> git clone https://github.com/DFRI/rpitor.git
 
 * Run _initial-boot-setup-rpi2-raspbian-jessie.sh_. Pass "source" as an argument to compile from source.
