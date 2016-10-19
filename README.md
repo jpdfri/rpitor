@@ -21,14 +21,25 @@ Here be dragons...
 	> mkdir scripts && cd scripts
 
 * Create a fresh, minimal Raspbian install with [Raspbian unattended netinstaller](https://github.com/debian-pi/raspbian-ua-netinst)
-NOTE: as the time of this writing, kernel 4.4 has yet to be pushed to the master branch, please make sure you use [v1.1.x](https://github.com/debian-pi/raspbian-ua-netinst/tree/v1.1.x)
+NOTE: kernel 4.4 should now be part of the master branch, otherwise make sure you use [v1.1.x](https://github.com/debian-pi/raspbian-ua-netinst/tree/v1.1.x)
+	> git clone https://github.com/debian-pi/raspbian-ua-netinst.git
 
-* Use the _setup-image.sh_ script to create a customized _installer-config.txt_ file
+	> cd raspbian-ua-netinst
+
+	> ./clean.sh
+
+	> ./update.sh
+
+	> ./buildroot.sh
+
+* Copy the resulting _img_ file to your SD card with e.g. _dd_
+
+* Use the _setup-image.sh_ script from this repo to create a customized _installer-config.txt_ file
 	> bash setup-image.sh _Pi-hostname_ _root-password_
 
 If you don't pass any argument, the script will choose some for you
 
-* Follow the instructions for _Raspbian unattended netinstall_ up to the [First boot](https://github.com/debian-pi/raspbian-ua-netinst/tree/v1.1.x#first-boot) section, using the root password you previously chose/were given
+* Mount your SD card and copy the resulting _installer-config.txt_ alongside _config.txt_  
 * Clone the rpitor repo to the Raspberry Pi
 	> git clone https://github.com/DFRI/rpitor.git
 
