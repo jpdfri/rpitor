@@ -28,9 +28,9 @@ NOTE: kernel 4.4 should now be part of the master branch, otherwise make sure yo
 
 	> ./clean.sh
 
-	> ./update.sh
+	> ./build.sh
 
-	> ./buildroot.sh
+	> ./buildroot.sh (as root, e.g. with sudo)
 
 * Copy the resulting _img_ file to your SD card with e.g. _dd_
 
