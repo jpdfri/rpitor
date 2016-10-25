@@ -42,4 +42,4 @@ timeserver=0.se.pool.ntp.org
 timezone=Europe/Stockholm
 EOF
 
-echo "File installer-config.txt ready, copy it to your raspbian-ua-netinstall SD-card alongside the cmdline.txt file"
+echo "File installer-config.txt ready, make sure it is located in the same folder as build.sh, so the script will copy it to your raspbian-ua-netinstall SD-card alongside the cmdline.txt file"

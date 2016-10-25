@@ -124,13 +124,13 @@ grep -v ^sshd: /etc/hosts.allow > /etc/hosts.allow-new
 mv /etc/hosts.allow-new /etc/hosts.allow
 echo "sshd: $NETWORK" >> /etc/hosts.allow
 
-# Set timezone
+# Set timezone - if setup-image.sh was run, this should be redundant
 if [ ! $(grep Stockholm /etc/timezone) ]; then
 	echo "Europe/Stockholm" > /etc/timezone
 	dpkg-reconfigure -f noninteractive tzdata
 fi
 
-# Set time
+# Set time - if setup-image.sh was run, this should be redundant, but we do it anyway since we've downloaded ntpdate
 systemctl stop ntp
 /usr/sbin/ntpdate 0.se.pool.ntp.org
 systemctl start ntp

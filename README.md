@@ -26,20 +26,17 @@ NOTE: kernel 4.4 should now be part of the master branch, otherwise make sure yo
 
 	> cd raspbian-ua-netinst
 
-	> ./clean.sh
+* Download and use the _setup-image.sh_ script from this repo to create a customized _installer-config.txt_ file
+	> bash setup-image.sh _Pi-hostname_ _root-password_
 
+If you don't pass any argument, the script will choose some for you
+
+* Proceed with building the base image	
 	> ./build.sh
 
 	> ./buildroot.sh (as root, e.g. with sudo)
 
 * Copy the resulting _img_ file to your SD card with e.g. _dd_
-
-* Use the _setup-image.sh_ script from this repo to create a customized _installer-config.txt_ file
-	> bash setup-image.sh _Pi-hostname_ _root-password_
-
-If you don't pass any argument, the script will choose some for you
-
-* Mount your SD card and copy the resulting _installer-config.txt_ alongside _config.txt_  
 * Boot up your Raspberry Pi 2, let it go through the initial setup. Once you can SSH into it, clone the rpitor repo to the Raspberry Pi
 	> git clone https://github.com/DFRI/rpitor.git
 
