@@ -73,7 +73,7 @@ gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
 apt-get update
 
 # Raspbian packages
-apt-get install -y raspi-copies-and-fills rpi-update
+apt-get install -y raspi-copies-and-fills raspberrypi-kernel raspberrypi-bootloader 
 
 # Debian Jessie packages
 apt-get install -y zlib1g-dev ntpdate perl openssl wget libevent-2.0-5
