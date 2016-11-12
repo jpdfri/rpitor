@@ -26,8 +26,8 @@ NOTE: kernel 4.4 should now be part of the master branch, otherwise make sure yo
 
 	> cd raspbian-ua-netinst
 
-* Download and use the _setup-image.sh_ script from this repo to create a customized _installer-config.txt_ file
-	> bash setup-image.sh _Pi-hostname_ _root-password_
+* Download and use the _setup-image.sh_ script from this repo to create customized _installer-config.txt_ and _post-install.txt_ files
+	> bash setup-image.sh _Pi-hostname_ _root-password_ _git repo_
 
 If you don't pass any argument, the script will choose some for you
 
@@ -37,10 +37,6 @@ If you don't pass any argument, the script will choose some for you
 	> ./buildroot.sh (as root, e.g. with sudo)
 
 * Copy the resulting _img_ file to your SD card with e.g. _dd_
-* Boot up your Raspberry Pi 2, let it go through the initial setup. Once you can SSH into it, clone the rpitor repo to the Raspberry Pi
-	> git clone https://github.com/DFRI/rpitor.git
-
-* Run _initial-boot-setup-rpi2-raspbian-jessie.sh_. Pass "source" as an argument to compile from source.
-* Now the RPi will download and install updates and then reboot itself (this normally takes about 10-15 minutes).
+* Boot up your Raspberry Pi 2, let it go through the initial setup. The RPi will download and install all necessary packages and then reboot itself (this normally takes about 10-15 minutes).
 * After the automatic reboot, Tor will be started.
 * Remember to setup port forwarding (TCP 9001) on your router/firewall if the RPi is located on a NAT:ed private LAN

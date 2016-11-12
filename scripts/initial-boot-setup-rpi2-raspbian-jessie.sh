@@ -12,17 +12,16 @@ fi
 # We assume DFRI's Git repo was cloned
 SCRIPTS_PATH="/root/rpitor/scripts"
 if [ ! -d $SCRIPTS_PATH ]; then
-	echo "Please clone DFRI's \"rpitor\" Git repo to /root"
-	exit 0
+	echo "Please clone DFRI's \"rpitor\" Git repo to /root. Exiting."
+	exit 1
 fi
 
 # Backup fstab
 cp /etc/fstab /etc/fstab.orig
 # New fstab to minimize SD-card wear
 cat << EOF > /etc/fstab
-proc            /proc           proc    defaults          0       0
 /dev/mmcblk0p1  /boot           vfat    defaults          0       2
-/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1
+/dev/mmcblk0p2  /               ext4    defaults,noatime	  0     1
 tmpfs           /var/log        tmpfs   defaults,noatime,size=10% 0     0
 tmpfs           /tmp            tmpfs   defaults,noatime,size=10% 0     0
 EOF
@@ -69,7 +68,7 @@ EOF
 gpg --keyserver keys.gnupg.net --recv 886DDD89
 gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
 
-# Install packages we want in place
+# Install packages we want in place or make sure they are marked as manually installed
 apt-get update
 
 # Raspbian packages
@@ -78,36 +77,12 @@ apt-get install -y raspi-copies-and-fills raspberrypi-kernel raspberrypi-bootloa
 # Debian Jessie packages
 apt-get install -y zlib1g-dev ntpdate perl openssl wget libevent-2.0-5
 
-# UPnP - should we use something else? NAT KeepAlive?
+# UPnP - should we use something else? 
 apt-get install -y miniupnpc
 
 # Tor 
 apt-get install -y deb.torproject.org-keyring torsocks
 apt-get install -y tor
-# The precompiled package might complain about OpenSSL headers mismatch
-# We play it safe with an optional CLI argument to compile locally
-cd /root/
-if [ $1 == "source" ]; then 
-	# Backup systemd service unit files
-	mkdir tor.service.backup && cp /lib/systemd/system/tor*.service tor.service.backup/
-	apt-get remove -y tor
-	apt-get install libevent-2.0-5 && apt-get build-dep -y tor && apt-get source -y tor
-	# This is all kinds of ugly code...
-	if [ -d tor-0\.* ]; then
-		cd tor-0*
-		./configure
-		make -j5
-		make install
-		cd ..
-		# Restore systemd service unit files and modify the binay path
-		cp tor.service.backup/tor*.service /lib/systemd/system/
-		sed -i 's/\/usr\/bin\/tor/\/usr\/local\/bin\/tor/g' /lib/systemd/system/tor@default.service
-		systemctl enable tor.service
-		systemctl unmask tor.service
-	else
-		exit 1
-	fi
-fi
 
 # Don't forget perl-modules we use in scripts - TODO: use bash commands instead?
 if [ ! -f /usr/local/share/perl/5.[0-9]{1,2}.[0-9]{1,2}/Net/IP.pm ]
@@ -172,7 +147,7 @@ apt-get clean
 
 # Fix rc.local to automatically start our scripts on boot
 egrep -v "$SCRIPTS_PATH|exit 0" /etc/rc.local > /etc/rc.local-new
-echo "$SCRIPTS_PATH/initial-boot-setup-rpi.sh" >> /etc/rc.local-new
+echo "$SCRIPTS_PATH/initial-boot-setup-rpi2-raspbian-jessie.sh" >> /etc/rc.local-new
 echo "$SCRIPTS_PATH/on-rpi-boot.sh" >> /etc/rc.local-new
 echo "$SCRIPTS_PATH/config-tor.sh" >> /etc/rc.local-new
 echo "$SCRIPTS_PATH/backup-rpi.sh" >> /etc/rc.local-new
