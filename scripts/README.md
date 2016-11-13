@@ -18,8 +18,8 @@ initial-boot-setup-rpi2-raspbian-jessie.sh
 restore-rpi.sh
  - Called from /etc/rc.local, only works within certain conditions. Requires usb key connected.
 
-setup-image.sh
- - This is a script to run on a host machine when you want to setup a new image. Creates a customized installer file for raspbian-ua-netinst.
+setup-image/setup-image.sh
+ - This is a script to run on a host machine when you want to setup a new image. Creates customized installer files for raspbian-ua-netinst.
 
 update-rpi.sh
  - Update the raspberry, called from cron.

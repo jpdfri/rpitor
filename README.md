@@ -29,7 +29,7 @@ NOTE: kernel 4.4 should now be part of the master branch, otherwise make sure yo
 * Download and use the _setup-image.sh_ script from this repo to create customized _installer-config.txt_ and _post-install.txt_ files
 	> bash setup-image.sh _Pi-hostname_ _root-password_ _git repo_
 
-If you don't pass any argument, the script will choose some for you
+If you don't pass any argument, the script will choose some for you. Note that the script will ask you if you want to checkout the "devel" branch and use more recent (albeit in testing) scripts.
 
 * Proceed with building the base image	
 	> ./build.sh
