@@ -21,10 +21,13 @@ cp /etc/fstab /etc/fstab.orig
 # New fstab to minimize SD-card wear
 cat << EOF > /etc/fstab
 /dev/mmcblk0p1  /boot           vfat    defaults          0       2
-/dev/mmcblk0p2  /               ext4    defaults,noatime	  0     1
+/dev/mmcblk0p2  /               ext4    defaults,noatime,discard  0     1
 tmpfs           /var/log        tmpfs   defaults,noatime,size=10% 0     0
 tmpfs           /tmp            tmpfs   defaults,noatime,size=10% 0     0
 EOF
+
+# Force fsck at every boot
+tune2fs -c 1 /dev/mmcblk0p2
 
 # Update sources
 apt-get update
