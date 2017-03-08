@@ -10,11 +10,13 @@ Major changes are as follows:
 ##This is the devel branch
 Here be dragons...
 * WIPs and TODOs
-	> Decide of a license
+	> Decide of a license - done
 
-	> systemd unit files for locally compiled packages, copied from a repo package?
+	> systemd unit files for locally compiled packages, copied from a repo package? - unecessary
 
 	> To Perl or not to Perl...
+
+	> Alternative to UPnP
 
 ##Getting started with a new relay
 * Prepare a folder to work with the scripts and such
