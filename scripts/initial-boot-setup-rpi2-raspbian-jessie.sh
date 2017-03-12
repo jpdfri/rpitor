@@ -145,7 +145,7 @@ echo "${RANDOM_MINUTE} ${RANDOM_HOUR} * * * $SCRIPTS_PATH/update-scripts.sh > /d
 crontab /tmp/root-crontab
 
 # Clean up some apt storage
-apt-get autoremove
+apt-get autoremove -y
 apt-get clean
 
 # Fix rc.local to automatically start our scripts on boot
