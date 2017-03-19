@@ -1,14 +1,17 @@
 # rpitor
 
-[DFRI's](https://www.dfri.se/) second project for [Raspberry PI's](https://www.dfri.se/projekt/tor/rpi/), making them an appliance for Tor.
+[DFRI](https://www.dfri.se/)'s second project for [Raspberry PI's](https://www.dfri.se/projekt/tor/rpi/), making them an appliance for Tor.
 
 Scripts in this repo are a collection of updated scripts from [dfri-rpi-tor](https://github.com/DFRI/dfri-rpi-tor).
 Major changes are as follows:
+
 * Hardware upgraded to Raspberry Pi 2
+
 * Base OS upgraded to Raspbian Jessie
 
-##This is the devel branch
-Here be dragons...
+## This is the devel branch
+_Here be dragons..._
+
 * WIPs and TODOs
 	> Decide of a license - done
 
@@ -18,7 +21,7 @@ Here be dragons...
 
 	> Alternative to UPnP
 
-##Getting started with a new relay
+## Getting started with a new relay
 * Prepare a folder to work with the scripts and such
 	> mkdir scripts && cd scripts
 
