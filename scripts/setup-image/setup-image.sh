@@ -52,12 +52,12 @@ fi
 
 read -p "Would you like to checkout the devel branch? [y/N] " USE_DEVEL_BRANCH
 
-cat << "EOF" > post-install.txt
+cat << EOF > post-install.txt
 # post-install.txt
 # Text file used by raspbian-ua-netinst to perform commands after the inital setup
 
 # Clone the git repo
-chroot /rootfs /usr/bin/git clone $GIT_REPO /rootfs/root/rpitor
+chroot /rootfs /usr/bin/git clone ${GIT_REPO} /rootfs/root/rpitor
 
 EOF
 
@@ -84,4 +84,4 @@ chroot /rootfs /bin/mv /rootfs/etc/rc.local-new /rootfs/etc/rc.local
 chroot /rootfs /bin/chmod u+x /rootfs/etc/rc.local
 EOF
 
-echo "Files \"installer-config.txt\" and \"post-install.txt\" ready, make sure they are copied to the same folder as raspbian-ua-netinst\'s \"build.sh\" script, which will copy them to your raspbian-ua-netinstall SD-card."
+echo "Files \"installer-config.txt\" and \"post-install.txt\" ready, make sure they are copied to the same folder as raspbian-ua-netinst's \"build.sh\" script, which will copy them to your raspbian-ua-netinstall SD-card."
