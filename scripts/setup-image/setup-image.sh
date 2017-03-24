@@ -57,7 +57,7 @@ cat << EOF > post-install.txt
 # Text file used by raspbian-ua-netinst to perform commands after the inital setup
 
 # Clone the git repo
-chroot /rootfs /usr/bin/git clone ${GIT_REPO} /rootfs/root/rpitor
+chroot /rootfs /usr/bin/git clone ${GIT_REPO} /root/rpitor
 
 EOF
 
@@ -74,14 +74,14 @@ fi
 
 cat << "EOF" >> post-install.txt
 # Fix rc.local to automatically start our scripts on boot
-chroot /rootfs /bin/egrep -v "/root/rpitor/scripts|exit 0" /rootfs/etc/rc.local > /rootfs/etc/rc.local-new
-chroot /rootfs /bin/echo "/root/rpitor/scripts/initial-boot-setup-rpi2-raspbian-jessie.sh" >> /rootfs/etc/rc.local-new
-chroot /rootfs /bin/echo "/root/rpitor/scripts/on-rpi-boot.sh" >> /rootfs/etc/rc.local-new
-chroot /rootfs /bin/echo "/root/rpitor/scripts/config-tor.sh" >> /rootfs/etc/rc.local-new
-chroot /rootfs /bin/echo "/root/rpitor/scripts/backup-rpi.sh" >> /rootfs/etc/rc.local-new
-chroot /rootfs /bin/echo "exit 0" >> /rootfs/etc/rc.local-new
-chroot /rootfs /bin/mv /rootfs/etc/rc.local-new /rootfs/etc/rc.local
-chroot /rootfs /bin/chmod u+x /rootfs/etc/rc.local
+chroot /rootfs /bin/egrep -v "/root/rpitor/scripts|exit 0" /etc/rc.local > /etc/rc.local-new
+chroot /rootfs /bin/echo "/root/rpitor/scripts/initial-boot-setup-rpi2-raspbian-jessie.sh" >> /etc/rc.local-new
+chroot /rootfs /bin/echo "/root/rpitor/scripts/on-rpi-boot.sh" >> /etc/rc.local-new
+chroot /rootfs /bin/echo "/root/rpitor/scripts/config-tor.sh" >> /etc/rc.local-new
+chroot /rootfs /bin/echo "/root/rpitor/scripts/backup-rpi.sh" >> /etc/rc.local-new
+chroot /rootfs /bin/echo "exit 0" >> /etc/rc.local-new
+chroot /rootfs /bin/mv /etc/rc.local-new /etc/rc.local
+chroot /rootfs /bin/chmod u+x /etc/rc.local
 EOF
 
 echo "Files \"installer-config.txt\" and \"post-install.txt\" ready, make sure they are copied to the same folder as raspbian-ua-netinst's \"build.sh\" script, which will copy them to your raspbian-ua-netinstall SD-card."
