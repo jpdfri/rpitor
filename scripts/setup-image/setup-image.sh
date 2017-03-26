@@ -50,27 +50,30 @@ then
   echo "No Git repository provided, using $GIT_REPO"
 fi
 
-read -p "Would you like to checkout the devel branch? [y/N] " USE_DEVEL_BRANCH
+read -p "Which branch do you wish to use? [master/devel] " GIT_BRANCH
 
 cat << EOF > post-install.txt
 # post-install.txt
 # Text file used by raspbian-ua-netinst to perform commands after the inital setup
 
 # Clone the git repo
-chroot /rootfs /usr/bin/git clone ${GIT_REPO} /root/rpitor
+chroot /rootfs /usr/bin/git clone -b ${GIT_BRANCH} ${GIT_REPO} /root/rpitor
 
 EOF
 
-# Checkout devel branch if instructed
-if [ -n "${USE_DEVEL_BRANCH}" ] && [[ "${USE_DEVEL_BRANCH}" =~ [yY] ]]
-then
-  cat << EOF >> post-install.txt
+# Checkout devel branch if instructed - commented out/archived; not working as intended
+#if [ -n "${USE_DEVEL_BRANCH}" ] && [[ "${USE_DEVEL_BRANCH}" =~ [yY] ]]
+#then
+#  cat << EOF >> post-install.txt
 # Checkout devel branch
-cd /rootfs/root/rpitor
-chroot /rootfs /usr/bin/git checkout devel
+#cd /rootfs/root/rpitor
+#chroot /rootfs /usr/bin/git checkout devel
+#EOF
+#fi
 
-EOF
-fi
+# Make all scripts executable
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/*.sh
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/*.pl
 
 cat << "EOF" >> post-install.txt
 # Fix rc.local to automatically start our scripts on boot
