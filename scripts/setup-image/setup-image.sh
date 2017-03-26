@@ -59,8 +59,6 @@ cat << EOF > post-install.txt
 # Clone the git repo
 chroot /rootfs /usr/bin/git clone -b ${GIT_BRANCH} ${GIT_REPO} /root/rpitor
 
-EOF
-
 # Checkout devel branch if instructed - commented out/archived; not working as intended
 #if [ -n "${USE_DEVEL_BRANCH}" ] && [[ "${USE_DEVEL_BRANCH}" =~ [yY] ]]
 #then
@@ -75,7 +73,6 @@ EOF
 chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/*.sh
 chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/*.pl
 
-cat << "EOF" >> post-install.txt
 # Fix rc.local to automatically start our scripts on boot
 chroot /rootfs /bin/egrep -v "/root/rpitor/scripts|exit 0" /etc/rc.local > /etc/rc.local-new
 chroot /rootfs /bin/echo "/root/rpitor/scripts/initial-boot-setup-rpi2-raspbian-jessie.sh" >> /etc/rc.local-new
