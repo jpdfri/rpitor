@@ -70,8 +70,17 @@ chroot /rootfs /usr/bin/git clone -b ${GIT_BRANCH} ${GIT_REPO} /root/rpitor
 #fi
 
 # Make all scripts executable
-chroot /rootfs /bin/chmod 755 /root/rpitor/scripts/*.sh
-chroot /rootfs /bin/chmod 755 /root/rpitor/scripts/*.pl
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/backup-rpi.sh
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/check-ipsubnet.sh
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/config-tor.sh
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/initial-boot-setup-rpi2-raspbian-jessie.sh
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/on-rpi-boot.sh
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/restore-rpi.sh
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/update-rpi.sh
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/update-scripts.sh
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/wipe-rpi.sh
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/check-iptype.pl
+chroot /rootfs /bin/chmod u+x /root/rpitor/scripts/create-passwd-hash.pl
 
 # Fix rc.local to automatically start our scripts on boot
 chroot /rootfs /bin/egrep -v "/root/rpitor/scripts|exit 0" /etc/rc.local > /rootfs/etc/rc.local-new
