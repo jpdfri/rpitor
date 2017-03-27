@@ -4,6 +4,10 @@
 # Path variables
 # We assume the Git repo was cloned
 SCRIPTS_PATH="/root/rpitor/scripts"
+# Determine the current Git remote and banch
+GIT_REMOTE=$(cd ${SCRIPTS_PATH} && git remote -v | head -1 | awk '{ print $2 }')
+GIT_BRANCH=$(cd ${SCRIPTS_PATH} && git branch | grep '*' | cut -d\  -f2)
+
 if [ ! -d $SCRIPTS_PATH ]; then
 	echo "Please clone DFRI's \"rpitor\" Git repo to /root"
 	exit 0
@@ -25,7 +29,7 @@ if [ -d $SCRIPTS_PATH ]
 then
   mv rpitor rpitor-saved
 fi
-git clone https://github.com/DFRI/rpitor.git
+git clone ${GIT_REMOTE} -b ${GIT_BRANCH}
 if [ $? -eq 0 ]
 then
   rm -rf rpitor-saved
