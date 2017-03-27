@@ -88,6 +88,9 @@ apt-get install -y deb.torproject.org-keyring torsocks
 apt-get install -y tor
 
 # Don't forget perl-modules we use in scripts - TODO: use bash commands instead?
+# Initialize CPAN
+echo -e  '\n' | cpan
+
 # Find the installed Perl version by querying dpkg and removing the minor revision number
 PERL_VER=$(dpkg -l perl | tail -1 | awk '{ print $3 }' | cut -d- -f1)
 if [ ! -f /usr/local/share/perl/"${PERL_VER}"/Net/IP.pm ]
