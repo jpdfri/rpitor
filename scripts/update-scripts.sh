@@ -29,7 +29,11 @@ if [ -d $SCRIPTS_PATH ]
 then
   mv rpitor rpitor-saved
 fi
+
 git clone ${GIT_REMOTE} -b ${GIT_BRANCH}
+# Exec flag
+chmod u+x /root/rpitor/scripts/*.{sh,pl}
+
 if [ $? -eq 0 ]
 then
   rm -rf rpitor-saved
