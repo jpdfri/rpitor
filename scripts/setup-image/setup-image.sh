@@ -36,7 +36,7 @@ fi
 echo "Setting ${PIHOSTNAME} and giving root-user the password: ${PASSWORD}"
 
 cat << EOF > installer-config.txt
-packages=git,rng-tools,zlib1g-dev,ntpdate,perl,openssl,wget,libevent-2.0-5,miniupnpc
+packages=git,rng-tools,zlib1g-dev,ntpdate,perl,openssl,wget,libevent-2.0-5,miniupnpc,make
 hostname=$PIHOSTNAME
 rootpw=$PASSWORD
 timeserver=0.se.pool.ntp.org

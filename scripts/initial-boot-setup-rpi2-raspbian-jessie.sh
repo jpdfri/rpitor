@@ -83,6 +83,9 @@ apt-get install -y zlib1g-dev ntpdate perl openssl wget libevent-2.0-5
 # UPnP - should we use something else? 
 apt-get install -y miniupnpc
 
+# make - required for the CPAN module
+apt-get install -y make
+
 # Tor 
 apt-get install -y deb.torproject.org-keyring torsocks
 apt-get install -y tor
