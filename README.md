@@ -5,7 +5,7 @@
 Scripts in this repo are a collection of updated scripts from [dfri-rpi-tor](https://github.com/DFRI/dfri-rpi-tor).
 Major changes are as follows:
 
-* Hardware upgraded to Raspberry Pi 2
+* Hardware upgraded to Raspberry Pi 2 (support for Raspberry Pi 3 experimental)
 
 * Base OS upgraded to Raspbian Jessie
 
@@ -26,7 +26,7 @@ _Here be dragons..._
 	> mkdir scripts && cd scripts
 
 * Create a fresh, minimal Raspbian install with [Raspbian unattended netinstaller](https://github.com/debian-pi/raspbian-ua-netinst)
-NOTE: kernel 4.4 should now be part of the master branch, otherwise make sure you use [v1.1.x](https://github.com/debian-pi/raspbian-ua-netinst/tree/v1.1.x)
+NOTE: Raspberry Pi 3 requires you use [v1.1.x](https://github.com/debian-pi/raspbian-ua-netinst/tree/v1.1.x)
 	> git clone https://github.com/debian-pi/raspbian-ua-netinst.git
 
 	> cd raspbian-ua-netinst
