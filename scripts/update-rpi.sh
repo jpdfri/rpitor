@@ -4,18 +4,23 @@
 # Set the limit to 200M
 # Check before and after upgrades
 
-ROOTFS_SIZE_LIMIT=200000
+ROOTFS_LIM=200000
 
-if [ $(df / | tail -1 | awk '{print $4}') -le $ROOTFS_SIZE_LIMIT ]; then 
-	apt-get clean
+function check_df () {
+if [ $(df / | tail -1 | awk '{print $4}') -le $1 ]; then 
+	apt clean
 fi
+}
 
-apt-get update
-apt-get upgrade -y
-apt-get dist-upgrade -y
+check_df ${ROOTFS_LIM}
 
-if [ $(df / | tail -1 | awk '{print $4}') -le $ROOTFS_SIZE_LIMIT ]; then 
-	apt-get clean
+apt update
+apt upgrade -y
+
+check_df ${ROOTFS_LIM}
+
+if [ "$(whoami)" == "root" ]; then
+	reboot
+else
+	echo "Must be root. Sorry."
 fi
-
-reboot
