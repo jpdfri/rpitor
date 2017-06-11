@@ -138,10 +138,10 @@ crontab /tmp/root-crontab
 # Add another cronjob, update-rpi.sh
 RANDOM_MINUTE=$[ ( $RANDOM % 60 ) ]
 RANDOM_HOUR=$[ ( $RANDOM % 24 ) ]
-RANDOM_MONTHDAY=$[ ( $RANDOM % 24 ) + 1 ]
+RANDOM_WEEKDAY=$[ ( $RANDOM % 6 ) + 1 ]
 crontab -l > /tmp/root-crontab
 echo "# Update! RPI" >> /tmp/root-crontab
-echo "${RANDOM_MINUTE} ${RANDOM_HOUR} ${RANDOM_MONTHDAY} * * $SCRIPTS_PATH/update-rpi.sh > /dev/null 2>&1" >> /tmp/root-crontab
+echo "${RANDOM_MINUTE} ${RANDOM_HOUR} * * ${RANDOM_WEEKDAY} $SCRIPTS_PATH/update-rpi.sh > /dev/null 2>&1" >> /tmp/root-crontab
 crontab /tmp/root-crontab
 
 # Add another cronjob, update-scripts.sh

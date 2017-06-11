@@ -1,43 +1,43 @@
 #!/bin/bash
-# Just make sure that we're running on-rpi-boot.sh on every boot
 
 # Path variables
 # We assume the Git repo was cloned
 SCRIPTS_PATH="/root/rpitor/scripts"
 # Determine the current Git remote and banch
-GIT_REMOTE=$(cd ${SCRIPTS_PATH} && git remote -v | head -1 | awk '{ print $2 }')
-GIT_BRANCH=$(cd ${SCRIPTS_PATH} && git branch | grep '*' | cut -d\  -f2)
+GIT_REMOTE=$(cd ${SCRIPTS_PATH} && /usr/bin/git remote -v | /usr/bin/head -1 | /usr/bin/awk '{ print $2 }')
+GIT_BRANCH=$(cd ${SCRIPTS_PATH} && /usr/bin/git branch | /bin/grep '*' | /usr/bin/cut -d\  -f2)
 
 if [ ! -d $SCRIPTS_PATH ]; then
-	echo "Please clone DFRI's \"rpitor\" Git repo to /root"
+	/bin/echo "Please clone DFRI's \"rpitor\" Git repo to /root"
 	exit 0
 fi
 
-if [ "$(grep -c on-rpi-boot.sh /etc/rc.local)" != "1" ]
+# Just make sure that we're running on-rpi-boot.sh on every boot
+if [ "$(/bin/grep -c on-rpi-boot.sh /etc/rc.local)" != "1" ]
 then
-  echo "$SCRIPTS_PATH/on-rpi-boot.sh" >> /etc/rc.local
-  $SCRIPTS_PATH/on-rpi-boot.sh
+  /bin/echo "$SCRIPTS_PATH/on-rpi-boot.sh" >> /etc/rc.local
+  #$SCRIPTS_PATH/on-rpi-boot.sh
 fi
 
-grep -v "exit 0" /etc/rc.local > /etc/rc.local-new
-echo "exit 0" >> /etc/rc.local-new
-mv /etc/rc.local-new /etc/rc.local
-chmod u+x /etc/rc.local
+/bin/grep -v "exit 0" /etc/rc.local > /etc/rc.local-new
+/bin/echo "exit 0" >> /etc/rc.local-new
+/bin/mv /etc/rc.local-new /etc/rc.local
+/bin/chmod u+x /etc/rc.local
 
 cd /root
 if [ -d $SCRIPTS_PATH ]
 then
-  mv rpitor rpitor-saved
+  /bin/mv rpitor rpitor-saved
 fi
 
-git clone ${GIT_REMOTE} -b ${GIT_BRANCH}
+/usr/bin/git clone ${GIT_REMOTE} -b ${GIT_BRANCH}
 # Exec flag
-chmod u+x /root/rpitor/scripts/*.{sh,pl}
+/bin/chmod u+x /root/rpitor/scripts/*.{sh,pl}
 
 if [ $? -eq 0 ]
 then
-  rm -rf rpitor-saved
+  /bin/rm -rf rpitor-saved
 else
-  mv rpitor-saved rpitor
+  /bin/mv rpitor-saved rpitor
 fi
 

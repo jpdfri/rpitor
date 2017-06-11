@@ -7,20 +7,20 @@
 ROOTFS_LIM=200000
 
 function check_df () {
-if [ $(df / | tail -1 | awk '{print $4}') -le $1 ]; then 
-	apt clean
+if [ $(/bin/df / | /usr/bin/tail -1 | /usr/bin/awk '{print $4}') -le $1 ]; then 
+	/usr/bin/apt clean
 fi
 }
 
 check_df ${ROOTFS_LIM}
 
-apt update
-apt upgrade -y
+/usr/bin/apt update
+/usr/bin/apt upgrade -y
 
 check_df ${ROOTFS_LIM}
 
 if [ "$(whoami)" == "root" ]; then
-	reboot
+	/sbin/reboot
 else
 	echo "Must be root. Sorry."
 fi
