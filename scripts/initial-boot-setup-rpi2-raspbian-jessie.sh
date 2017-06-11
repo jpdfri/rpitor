@@ -132,7 +132,7 @@ fi
 RANDOM_MINUTE=$[ ( $RANDOM % 60 ) ]
 crontab -l > /tmp/root-crontab
 echo "# ntpdate, set time, important" >> /tmp/root-crontab
-echo "${RANDOM_MINUTE} 1 * * * ( systemctl stop ntp ; /usr/sbin/ntpdate 0.se.pool.ntp.org ; systemctl start ntp ) > /dev/null 2>&1" >> /tmp/root-crontab
+echo "${RANDOM_MINUTE} 1 * * * ( /bin/systemctl stop ntp ; /usr/sbin/ntpdate 0.se.pool.ntp.org ; /bin/systemctl start ntp ) > /dev/null 2>&1" >> /tmp/root-crontab
 crontab /tmp/root-crontab
 
 # Add another cronjob, update-rpi.sh
